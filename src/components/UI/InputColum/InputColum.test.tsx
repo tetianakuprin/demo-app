@@ -5,9 +5,15 @@ import { InputColum } from "./InputColum";
 
 describe("<InputColum />", () => {
   test("it should mount", () => {
-    render(<InputColum defaultValue={""} handleBlur={function (event: any): void {
-      throw new Error("Function not implemented.");
-    } } refreshCol={false} />);
+    render(
+      <InputColum
+        defaultValue={""}
+        refreshCol={false}
+        handleBlur={function (event: React.FormEvent<HTMLInputElement>): void {
+          throw new Error("Function not implemented.");
+        }}
+      />
+    );
 
     const inputColum = screen.getByTestId("InputColum");
 

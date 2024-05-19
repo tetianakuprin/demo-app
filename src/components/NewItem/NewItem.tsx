@@ -11,10 +11,9 @@ import { HeaderType, RowType } from "../../types/dataTableType";
 import { THEME } from "../../ulits/theme";
 
 interface NewItemProps {
-  onDone: any;
+  onDone: () => void;
   colums: HeaderType[];
-
-  addNew: any;
+  addNew: (row: RowType) => void;
 }
 
 export const NewItem: FC<NewItemProps> = ({
@@ -25,14 +24,13 @@ export const NewItem: FC<NewItemProps> = ({
 }) => {
   const [emptyDataError, setEmptyDataError] = useState(false);
 
-  const handleSubmit = (event: any) => {
+  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-
     const newDataArr: RowType = [];
     colums.map(
       (el) =>
-        event.target[el.columnID].value.trim() &&
-        newDataArr.push(event.target[el.columnID].value.trim())
+        event.currentTarget[el.columnID].value.trim() &&
+        newDataArr.push(event.currentTarget[el.columnID].value.trim())
     );
     if (newDataArr.length === colums.length) {
       setEmptyDataError(false);
@@ -80,74 +78,3 @@ export const NewItem: FC<NewItemProps> = ({
     </NewItemWrapper>
   );
 };
-
-// import React, { FC, useState } from "react";
-// import {
-//   ErrorMessage,
-//   InputWrapper,
-//   NewItemWrapper,
-//   Input,
-//   ButtonWrapper,
-// } from "./NewItem.styled";
-// import { Button, Modal } from "../index";
-// import { HeaderType, RowType } from "../../types/dataTableType";
-// import { THEME } from "../../ulits/theme";
-
-// interface NewItemProps {
-//   onDone: any;
-//   colums: HeaderType[];
-
-//   addNew: any;
-// }
-
-// export const NewItem: FC<NewItemProps> = ({
-//   onDone,
-//   colums,
-
-//   addNew,
-// }) => {
-//   const [emptyDataError, setEmptyDataError] = useState(false);
-
-//   const handleSubmit = (event: any) => {
-//     event.preventDefault();
-
-//     const newDataArr: RowType = [];
-//     colums.map(
-//       (el) =>
-//         event.target[el.columnID].value.trim() &&
-//         newDataArr.push(event.target[el.columnID].value.trim())
-//     );
-//     if (newDataArr.length === colums.length) {
-//       setEmptyDataError(false);
-//       onDone();
-//       addNew(newDataArr);
-//     } else {
-//       setEmptyDataError(true);
-//     }
-//   };
-
-//   return (
-//     <NewItemWrapper data-testid="NewItem">
-//       <Modal title="New Item" onClose={onDone}>
-//         {emptyDataError && <ErrorMessage>All fields are required</ErrorMessage>}
-//         <form id="new-challenge" onSubmit={handleSubmit}>
-//           {colums.map((el) => (
-//             <InputWrapper key={el.columnID}>
-//               <label htmlFor="title">{el.displayName}</label>
-//               <Input
-//                 type="text"
-//                 placeholder={el.displayName}
-//                 name={el.columnID}
-//                 id={el.columnID}
-//               />
-//             </InputWrapper>
-//           ))}
-//           <ButtonWrapper>
-//             <Button type="button" handleClick={onDone} title="Cancel" />
-//             <Button title="Add New" background={THEME.green} />
-//           </ButtonWrapper>
-//         </form>
-//       </Modal>
-//     </NewItemWrapper>
-//   );
-// };

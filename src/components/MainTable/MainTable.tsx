@@ -11,13 +11,8 @@ export const MainTable: FC<MainTableProps> = () => {
   const [refreshCol, setRefreshCol] = useState(true);
   const [isAddNew, setIsAddNew] = useState(false);
   const [loading, setIsLoading] = useState(false);
-
   const [tableDataHeadings, setTableDataHeadings] = useState<HeaderType[]>([]);
-
   const [tableDataValue, setTableDataValue] = useState<RowType[]>([]);
-  // const [tableDataValue, setTableDataValue] = useState<RowType[]>([
-  //   ...tableData.items.map((arr) => [...arr]),
-  // ]);
 
   // 5000 ms
   useEffect(() => {
@@ -38,15 +33,15 @@ export const MainTable: FC<MainTableProps> = () => {
   }, []);
 
   const handleBlur = (
-    event: { target: { value: any } },
+    event: React.FormEvent<HTMLInputElement>,
     rowIndex: number,
     colIndex: number,
     col: string
   ) => {
     setTableDataValue((prevTableDataValue: RowType[]) => {
       const updateTableDataValue = [...prevTableDataValue];
-      if (event.target.value.trim()) {
-        updateTableDataValue[rowIndex][colIndex] = event.target.value;
+      if (event.currentTarget?.value.trim()) {
+        updateTableDataValue[rowIndex][colIndex] = event.currentTarget.value;
       } else {
         updateTableDataValue[rowIndex][colIndex] = col;
         setRefreshCol((prev) => !prev);

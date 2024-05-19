@@ -7,7 +7,7 @@ import {
 
 interface InputColumProps {
   defaultValue: string;
-  handleBlur: (event: any) => void;
+  handleBlur: (event: React.FormEvent<HTMLInputElement>) => void;
   refreshCol: boolean;
 }
 
