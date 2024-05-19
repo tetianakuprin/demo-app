@@ -3,8 +3,8 @@ import { Backdrop, DialogWrapper, ModalWrapper, Title } from "./Modal.styled";
 import { createPortal } from "react-dom";
 
 interface ModalProps {
-  title: any;
-  onClose: any;
+  title: string;
+  onClose: () => void;
 }
 
 export const Modal: FC<ModalProps> = ({ title, children, onClose }) => {

@@ -5,7 +5,14 @@ import { Modal } from "./Modal";
 
 describe("<Modal />", () => {
   test("it should mount", () => {
-    render(<Modal title={undefined} onClose={undefined} />);
+    render(
+      <Modal
+        title={""}
+        onClose={function (): void {
+          throw new Error("Function not implemented.");
+        }}
+      />
+    );
 
     const modal = screen.getByTestId("Modal");
 
